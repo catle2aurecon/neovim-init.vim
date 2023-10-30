@@ -5,9 +5,9 @@
 # Installs neovim and all necessary dependencies for Optixal's neovim-init.vim. Does not check if dependencies have already been installed. Highly recommended to go through each command and run them manually instead of using this convenience script, especially if you are running macOS or other Linux distros. For macOS, use homebrew instead of apt.
 
 # Vars used when downloading and installing neovim and dependencies
-NEOVIM_VERSION=0.7.0
-NVM_VERSION=0.39.1
-NODE_VERSION=18.0.0
+NEOVIM_VERSION=0.9.4
+NVM_VERSION=0.39.5
+NODE_VERSION=21.1.0
 
 # Check if this script is being run in the "convenience" directory
 if ! [[ "$PWD" = */convenience ]]; then
@@ -40,7 +40,8 @@ if [[ "$OSTYPE" = "darwin"* ]]; then
         git \
         gcc \
         ripgrep \
-        python3
+        python3 \
+        zsh
 else
     sudo apt update
     sudo apt install \
@@ -52,8 +53,12 @@ else
         python3 \
         python3-pip \
         python3-venv \
+        zsh \
         -y
 fi
+
+# Install oh-my-zsh
+sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
 # Install neovim
 echo "[*] Installing neovim $NEOVIM_VERSION ..."
@@ -61,6 +66,7 @@ wget "https://github.com/neovim/neovim/releases/download/v$NEOVIM_VERSION/nvim-l
 mkdir -p ~/.local/bin
 tar xf /tmp/nvim-linux64.tar.gz -C ~/.local
 ln -sf $(readlink -f ~/.local/nvim-linux64/bin/nvim) ~/.local/bin/nvim
+echo "alias vim='nvim'" >> ~/.zshrc
 
 # Add ~/.local/bin to PATH if it's not already in it
 if ! [[ ":$PATH:" == *":$HOME/.local/bin:"* ]]; then
