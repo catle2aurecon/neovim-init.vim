@@ -57,9 +57,9 @@ else
         -y
 fi
 
-# Install oh-my-zsh
-sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-
+# # Install oh-my-zsh
+# sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+ 
 # Install neovim
 echo "[*] Installing neovim $NEOVIM_VERSION ..."
 wget "https://github.com/neovim/neovim/releases/download/v$NEOVIM_VERSION/nvim-linux64.tar.gz" -O /tmp/nvim-linux64.tar.gz
